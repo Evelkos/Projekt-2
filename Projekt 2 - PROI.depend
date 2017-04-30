@@ -1,0 +1,18 @@
+# depslib dependency file v1.0
+1493482124 source:/home/ewelina/Pulpit/Projekt 2 - PROI (kopia)/book.cpp
+	"book.hpp"
+
+1493543391 /home/ewelina/Pulpit/Projekt 2 - PROI (kopia)/book.hpp
+	<iostream>
+
+1493576083 source:/home/ewelina/Pulpit/Projekt 2 - PROI (kopia)/list.cpp
+	"list.hpp"
+
+1493580247 /home/ewelina/Pulpit/Projekt 2 - PROI (kopia)/list.hpp
+	<iostream>
+	<cstdlib>
+
+1493580210 source:/home/ewelina/Pulpit/Projekt 2 - PROI (kopia)/main.cpp
+	"book.hpp"
+	"list.hpp"
+

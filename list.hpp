@@ -2,6 +2,7 @@
 #define List_hpp
 #include<iostream>
 #include<cstdlib>
+#include"book.hpp"
 
 template<typename T>
 class List
@@ -10,7 +11,7 @@ class List
   T obj;
   List<T> *next, *previous;
   public:
-  List(): next(NULL), previous(NULL) {}
+  List(T &o): next(NULL), previous(NULL) {obj = o;}
   T* get_obj() {return &obj;}
   List<T>* get_next() {return next;}
   List<T>* get_previous() {return previous;}
@@ -18,7 +19,6 @@ class List
   void set_next(List<T> *n) {next = n;}
   void set_previous(List<T> *p) {previous = p;}
 };
-
 
 //wyswietla liste obiektow, zwraca ich liczbe na liscie
 template<typename T>
@@ -35,13 +35,12 @@ int show_l(List<T> *first)
     current = first;
     do
     {
-      std::cout<<++i<<". "<<current->get_obj();//&((*current).obj); - poprzednia wersja
+      std::cout<<++i<<". "<<current->get_obj();
       current = current->get_next();
     }while(current != first);
   }
   return i;
 }
-
 
 //usuwa z listy element o zadanym numerze, zwraca wskaznik na pierwszy element listy
 template<typename T>
@@ -50,40 +49,37 @@ List<T>* delete_o(int n, List<T> *first)
   List<T> *current;
   current = first;
 
-  if(first == first->get_next())
-    first = NULL;
-
-  else if(n == 1)
-  {
-    (first->get_previous())->set_next(first->get_next());
-    (first->get_next())->set_previous(first->get_previous());
-    first = first->get_next();
+  if(first != NULL){
+    if(first == first->get_next())
+      first = NULL;
+    else if(n == 1)
+    {
+      (first->get_previous())->set_next(first->get_next());
+      (first->get_next())->set_previous(first->get_previous());
+      first = first->get_next();
+    }
+    else
+    {
+      for(int i = 1 ; i < n ; i++)
+        current = current->get_next();
+      (current->get_previous())->set_next(current->get_next());
+      (current->get_next())->set_previous(current->get_previous());
+    }
+    delete(current);
   }
-
-  else
-  {
-    for(int i = 1 ; i < n ; i++)
-      current = current->get_next();
-
-    (current->get_previous())->set_next(current->get_next());
-    (current->get_next())->set_previous(current->get_previous());
-  }
-
-  delete(current);
   return first;
 }
 
-
 //tworzy nowy element listy, posrednio: ustawia go na wlasciwym miejscu, zwraca wskaznik na pierwszy element listy
 template<typename T>
-auto new_o(List<T> *first) -> List<T>*//decltype(first)
+auto new_o(List<T> *first, T &o) -> List<T>*
 {
   List<T> *n;
-  n = new List<T>();
+  n = new List<T>(o);
   return (add_o(first,n));
 }
 
-
+//umieszcza nowy obiekt na wlasciwym miejscu - zwraca wskaznik na pierwszy element listy
 template<typename T>
 auto add_o(List<T> *first, List<T> *nObj) -> List<T>*
 {
@@ -126,22 +122,16 @@ auto add_o(List<T> *first, List<T> *nObj) -> List<T>*
   return first;
 }
 
-
-//wyszukuje z listy obiekt o zadanej nazwie, zwraca na niego wskaznik
+//wyszukuje obiekt z listy, zwraca na niego wskaznik, lub NULL (jesli takiego nie znajdzie)
 template<typename T>
-List<T>* find_o(std::string n, List<T> *first)
+List<T>* find_o(T &o, List<T> *first)
 {
   int i = 0;
-  List<T> *current = NULL;
+  List<T> *current = first;
 
-  current = first;
   do
   {
-    if(n == current->get_name())
-    {
-      i++;
-      break;
-    }
+    if(*(current->get_obj()) == o){ i++; break; }
     current = current->get_next();
   }while(current != first);
 

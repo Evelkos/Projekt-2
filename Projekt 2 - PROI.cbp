@@ -34,8 +34,17 @@
 		</Compiler>
 		<Unit filename="book.cpp" />
 		<Unit filename="book.hpp" />
+		<Unit filename="bookshop.cpp" />
+		<Unit filename="bookshop.hpp" />
+		<Unit filename="customer.cpp" />
+		<Unit filename="customer.hpp" />
+		<Unit filename="debug_head.hpp" />
+		<Unit filename="employee.cpp" />
+		<Unit filename="employee.hpp" />
 		<Unit filename="list.hpp" />
 		<Unit filename="main.cpp" />
+		<Unit filename="owner.cpp" />
+		<Unit filename="owner.hpp" />
 		<Extensions>
 			<envvars />
 			<code_completion />

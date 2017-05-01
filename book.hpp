@@ -38,6 +38,10 @@ class Book
 
   friend std::ostream& operator<< (std::ostream &os, Book *b) {os <<b->name<<"  "<<b->author<<"  "<<b->publisher;
   os <<"  "<<b->price<<"  "<<b->year<<"  "<<b->pages<<"  "<<b->number<<std::endl; return os;}
+  Book& operator= (Book &b2);
+  bool operator== (Book& o);
 };
+
+float quantity_pr(int, int);
 
 #endif

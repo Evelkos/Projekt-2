@@ -44,3 +44,99 @@
 1493668841 source:/home/ewelina/Pulpit/Projekt 2 - PROI (kopia)/customer.cpp
 	"customer.hpp"
 
+1493667115 source:/home/ewelina/Projekt-2/book.cpp
+	"book.hpp"
+	"debug_head.hpp"
+
+1493646972 /home/ewelina/Projekt-2/book.hpp
+	<iostream>
+
+1493643929 /home/ewelina/Projekt-2/debug_head.hpp
+
+1493674680 source:/home/ewelina/Projekt-2/bookshop.cpp
+	"bookshop.hpp"
+
+1493674612 /home/ewelina/Projekt-2/bookshop.hpp
+	"debug_head.hpp"
+	"list.hpp"
+	"book.hpp"
+	"employee.hpp"
+	"customer.hpp"
+
+1493668539 /home/ewelina/Projekt-2/list.hpp
+	<iostream>
+	<cstdlib>
+	"book.hpp"
+
+1493652187 /home/ewelina/Projekt-2/employee.hpp
+	"debug_head.hpp"
+	"book.hpp"
+
+1493668824 /home/ewelina/Projekt-2/customer.hpp
+	"book.hpp"
+	"list.hpp"
+	"debug_head.hpp"
+
+1493668841 source:/home/ewelina/Projekt-2/customer.cpp
+	"customer.hpp"
+
+1493667162 source:/home/ewelina/Projekt-2/employee.cpp
+	"employee.hpp"
+
+1493652328 source:/home/ewelina/Projekt-2/main.cpp
+	"bookshop.hpp"
+
+1493670932 source:/home/ewelina/Projekt-2/owner.cpp
+	"owner.hpp"
+
+1493670839 /home/ewelina/Projekt-2/owner.hpp
+	"bookshop.hpp"
+
+1493766858 source:/home/ewelina/Pulpit/Projekt-2/book.cpp
+	"book.hpp"
+
+1493766059 /home/ewelina/Pulpit/Projekt-2/book.hpp
+	"debug_head.hpp"
+	<iostream>
+	<cstdlib>
+
+1493643929 /home/ewelina/Pulpit/Projekt-2/debug_head.hpp
+
+1493764339 source:/home/ewelina/Pulpit/Projekt-2/customer.cpp
+	"customer.hpp"
+
+1493765961 /home/ewelina/Pulpit/Projekt-2/customer.hpp
+	"book.hpp"
+	"list.hpp"
+
+1493767496 /home/ewelina/Pulpit/Projekt-2/list.hpp
+	"book.hpp"
+
+1493763650 source:/home/ewelina/Pulpit/Projekt-2/employee.cpp
+	"employee.hpp"
+
+1493765978 /home/ewelina/Pulpit/Projekt-2/employee.hpp
+	"book.hpp"
+
+1493767985 source:/home/ewelina/Pulpit/Projekt-2/main.cpp
+	"owner.hpp"
+
+1493766111 /home/ewelina/Pulpit/Projekt-2/bookshop.hpp
+	"employee.hpp"
+	"customer.hpp"
+
+1493767928 source:/home/ewelina/Pulpit/Projekt-2/bookshop.cpp
+	"bookshop.hpp"
+
+1493766750 source:/home/ewelina/Pulpit/Projekt-2/owner.cpp
+	"owner.hpp"
+
+1493766732 /home/ewelina/Pulpit/Projekt-2/owner.hpp
+	"bookshop.hpp"
+
+1493766234 source:/home/ewelina/Pulpit/Projekt-2/interface.cpp
+	"interface.hpp"
+
+1493765842 /home/ewelina/Pulpit/Projekt-2/interface.hpp
+	"owner.hpp"
+

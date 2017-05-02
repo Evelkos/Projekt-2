@@ -1,6 +1,6 @@
 #ifndef employee_h
 #define employee_h
-#include "debug_head.hpp"
+
 #include "book.hpp"
 
 class Employee

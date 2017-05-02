@@ -1,7 +1,5 @@
 #ifndef List_hpp
 #define List_hpp
-#include<iostream>
-#include<cstdlib>
 #include"book.hpp"
 
 template<typename T>
@@ -46,12 +44,10 @@ int show_l(List<T> *first)
 template<typename T>
 List<T>* delete_o(int n, List<T> *first)
 {
-  List<T> *current;
-  current = first;
+  List<T> *current = first;
 
   if(first != NULL){
-    if(first == first->get_next())
-      first = NULL;
+    if(first == first->get_next())  first = NULL;
     else if(n == 1)
     {
       (first->get_previous())->set_next(first->get_next());
@@ -128,15 +124,17 @@ List<T>* find_o(T &o, List<T> *first)
 {
   int i = 0;
   List<T> *current = first;
-
-  do
+  if(current != NULL)
   {
-    if(*(current->get_obj()) == o){ i++; break; }
-    current = current->get_next();
-  }while(current != first);
+    do
+    {
+      if(*(current->get_obj()) == o){ i++; break; }
+      current = current->get_next();
+    }while(current != first);
 
-  if(i == 0)
-    current = NULL;
+    if(i == 0)
+      current = NULL;
+  }
 
   return current;
 }

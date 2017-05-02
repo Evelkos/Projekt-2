@@ -3,7 +3,6 @@
 
 #include "book.hpp"
 #include "list.hpp"
-#include "debug_head.hpp"
 
 //klient sklada zamowienie na konkretna ksiazke
 class Customer
@@ -31,6 +30,7 @@ class Customer
   void add_to_collection(Book &b);
   void operator +=(double m) {this->set_money(this->get_money() + m);}
   void show_collection();
+  void buy(Book&);
 
   friend std::ostream& operator<< (std::ostream &os, Customer *c) {os << c->get_name()<<" "<<c->get_surname() <<" "<<c->get_money()<<std::endl; return os;}
   Customer& operator= (Customer &c2);

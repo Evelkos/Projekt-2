@@ -28,3 +28,20 @@ Customer& Customer::operator= (Customer &c2)
   this->money = c2.get_money();
   return *this;
 }
+
+void Customer::buy(Book &bo)
+{
+  int i;
+
+  if(this->get_money() >= bo.get_price())
+  {
+    this->set_money(this->get_money() - bo.get_price());
+    i = bo.get_number() - 1;       //zapis liczby egzemplarzy pomniejszonej o sprzedany egzemplarz
+    bo.set_number(1);              //wynika ze specyfikacji operatora przypisania (kupowany jest 1 egz => number = 1)
+    this->add_to_collection(bo);   //dodawanie ksiazki do kolekcji
+    bo.set_number(i);              //ustawianie poprawnej ilosci ksiazek w ksiegarni
+  }
+
+  else
+    std::cout<<"-Mam zbyt malo pieniedzy. Nie moge kupic tej ksiazki"<<std::endl;
+}

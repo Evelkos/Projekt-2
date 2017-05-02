@@ -1,12 +1,8 @@
 #ifndef bookshop_h
 #define bookshop_h
 
-#include "debug_head.hpp"
-#include "list.hpp"
-#include "book.hpp"
-#include "employee.hpp"
+#include "employee.hpp"  //book.hpp zostaje dolaczony poprzez inne pliki naglowkowe
 #include "customer.hpp"
-//#include "customer.hpp"
 
 using namespace std;
 class Bookshop
@@ -45,28 +41,28 @@ class Bookshop
   void set_order(List<Book>* o) {order = o;}
   void set_oA(int oa) {oA = oa;}
 
-  void show_book();
-  void new_book();
-  void add_book(std::string t, std::string a, std::string p, float pr, int nO);
-  void withdraw_book(int n);
-  List<Book>* find_book(std::string t, std::string a, std::string p);
+  void show_books();
+  void show_customers();
+  void show_employees();
 
-  void show_customer_list();
-  void add_to_list_customer();
+  void new_book();
+  void new_employee();
+  void new_customer();
+
+  void delate_book(int n);
+  void delete_employee(int n);
   void delete_customer(int n);
 
-  void show_employee_list();
-  void delete_employee(int n);
-  void new_employee();
+  List<Book>* find_book(std::string t, std::string a, std::string p);
 
- // friend std::ostream& operator<< (std::ostream &os, Bookshop *b) {os << b->get_name();
- // os << " " << b->get_city() <<" " << b->get_budget() << std::endl; return os;}
+  void order_b();     //do klienta
+  void order_e();     //do pracownika
+  void show_order();  //do pracownika
 
   friend std::ostream& operator<< (std::ostream&, Bookshop*);
-
+  Bookshop& operator= (Bookshop &b2);
   void operator +(float p){this->budget+=p;}
   void  operator -(float n) { this->budget-=n;}
-  Bookshop& operator= (Bookshop &b2);
 };
 
 #endif

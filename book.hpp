@@ -1,8 +1,9 @@
 #ifndef book_h
 #define book_h
 
-//#include "debug_head.hpp"
+#include "debug_head.hpp"
 #include<iostream>
+#include<cstdlib>
 //#include<time.h>
 //#include<cstdlib>
 //#include<string.h>
@@ -36,8 +37,9 @@ class Book
   void set_number(int n) {number = n;}
   void set_nOrd(int nO) {nOrd = nO;}
 
-  friend std::ostream& operator<< (std::ostream &os, Book *b) {os <<b->name<<"  "<<b->author<<"  "<<b->publisher;
-  os <<"  "<<b->price<<"  "<<b->year<<"  "<<b->pages<<"  "<<b->number<<std::endl; return os;}
+  //friend std::ostream& operator<< (std::ostream &os, Book *b) {os <<b->name<<"  "<<b->author<<"  "<<b->publisher;
+  //os <<"  "<<b->price<<"  "<<b->year<<"  "<<b->pages<<"  "<<b->number<<std::endl; return os;}
+  friend std::ostream& operator<< (std::ostream&, Book*);
   Book& operator= (Book &b2);
   bool operator== (Book& o);
 };

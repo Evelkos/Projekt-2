@@ -1,5 +1,4 @@
 #include"book.hpp"
-#include"debug_head.hpp"
 
 Book::Book(std::string n, std::string a, std::string p, float pr, int y, int pag, int nu, int nO): name(n), author(a), publisher(p), price(pr), year(y), pages(pag), number(nu), nOrd(nO)
 {
@@ -9,6 +8,12 @@ Book::Book(std::string n, std::string a, std::string p, float pr, int y, int pag
 Book::~Book()
 {
   D(std::cout<<"Usuwamy ksiazke!"<<std::endl;)
+}
+
+std::ostream& operator<< (std::ostream &os, Book *b)
+{
+  os <<b->name<<"  "<<b->author<<"  "<<b->publisher<<"  "<<b->price<<"  "<<b->year<<"  "<<b->pages<<"  "<<b->number<<std::endl;
+  return os;
 }
 
 Book& Book::operator= (Book &b2)
@@ -35,5 +40,5 @@ bool Book::operator== (Book& o)
 //wylicza cene hurtowa ksiazki
 float quantity_pr(int year, int pages)
 {
-    return year*pages/2200;
+    return year*pages/22000;
 }

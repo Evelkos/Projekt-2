@@ -48,6 +48,7 @@
 		<Unit filename="main.cpp" />
 		<Unit filename="owner.cpp" />
 		<Unit filename="owner.hpp" />
+		<Unit filename="tests.cpp" />
 		<Extensions>
 			<envvars />
 			<code_completion />

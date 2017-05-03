@@ -1,12 +1,11 @@
-#include "functions.hpp"
+#include "owner.hpp"
 
 void tests()
 {
-  Bookshop *b1 = NULL, *b2 = NULL, *bf = NULL, *bl = NULL;
   int i;
 
   std::cout<<std::endl<<"TEST KLASY BOOKSHOP"<<std::endl<<std::endl<<"Na poczatek tworzymy obiekt automatyczny"<<std::endl;
-  Bookshop b("KSIEGARNIA", "MIASTO", 987.65, &b1, &b2);
+  Bookshop b("KSIEGARNIA", "MIASTO", 987.65);
   std::cout<<std::endl<<"Przeciazenie operatora << (wyswietlanie informacji o obiekcie):"<<std::endl;
   std::cout<<&b;
   std::cout<<"Przeciazenie operatora + (zwiekszenie budzetu - w tym wypadku o 200):"<<std::endl;
@@ -17,31 +16,32 @@ void tests()
   std::cout<<&b;
 
 
-  std::cout<<std::endl<<"Tworzymy okiekty dynamicznie"<<std::endl<<"Ze wzgledu na specyfikacje funkcji uzytkownik proszony jest o podanie potrzebnych danych"<<std::endl;
+  std::cout<<std::endl<<"Tworzymy okiekty dynamicznie"<<std::endl;
+  std::cout<<"W tym celu tworzymy pomocniczego wlasciciela"<<std::endl<<"Ze wzgledu na specyfikacje funkcji uzytkownik proszony jest o podanie potrzebnych danych"<<std::endl;
+  Owner ow;
   for(i = 0 ; i < 5 ; i++)
-    add_to_list_bookshop(&bf, &bl);
+    ow.new_bs();
   std::cout<<std::endl<<"Lista obiektow utworzonych dynamicznie:"<<std::endl;
-  show_bookshop_list(bf);
+  ow.show_bs();
   std::cout<<std::endl<<"Test statycznej metody zwracajacej liczbe obiektow"<<std::endl<<"Liczba ksiegarni: "<<Bookshop::get_numBookshops()<<std::endl;
 
 
   std::cout<<std::endl<<"Usuwamy obiekty kolejno: ostatni, trzeci, pierwszy"<<std::endl;
-  delete_bookshop(&bf, &bl, 5);
-  delete_bookshop(&bf, &bl, 3);
-  delete_bookshop(&bf, &bl, 1);
+  ow.delete_bs(5);
+  ow.delete_bs(3);
+  ow.delete_bs(1);
   std::cout<<std::endl<<"Lista ksiegarni po usunieciu obiektow:"<<std::endl;
-  show_bookshop_list(bf);
+  ow.show_bs();
   std::cout<<std::endl<<"Usuwamy pozostale obiekty utworzone dynamicznie"<<std::endl;
-  while(bf != NULL)
-    delete_bookshop(&bf, &bl, 1);
-  bf = NULL;
-  bl = NULL;
+  while(ow.get_firstBs() != NULL)
+    ow.delete_bs(1);
 
 
   std::cout<<std::endl<<"Tworzymy obiekt statyczny"<<std::endl;
-  static Bookshop bs("KSIEGARNIA", "STATYCZNA", 999.99, &bf, &bl);
+  static Bookshop bs("KSIEGARNIA", "STATYCZNA", 999.99);
   cout<<&bs;
   std::cout<<std::endl<<"Obiekt statyczny zostanie usuniety na zakonczeniu programu"<<std::endl;
+
 
   std::cout<<std::endl<<"Po zakonczonym tescie niszczony jest obiekt automatyczny"<<std::endl;
 }
@@ -50,68 +50,63 @@ void tests()
 void testsb()
 {
   int i;
-  Book b1("Ksiazka", 0, "Autor", "Wydawca", 2017, 500 , 0 , 0);
-  Bookshop *bs, *bs1 = NULL, *bs2 = NULL;
-
   std::cout<<"TEST KLASY BOOK"<<std::endl<<"Tworzymy obiekt automatyczny"<<std::endl;
+  Book b("Ksiazka", "Autor", "Wydawca", 9.99, 2017, 123, 1, 0);
   std::cout<<std::endl<<"Przeciazenie operatora << (wyswietlanie informacji o obiekcie):"<<std::endl;
-  std::cout<<&b1;
+  std::cout<<&b;
 
 
   std::cout<<std::endl<<"Tworzymy obiekty dynamicznie."<<std::endl<<"W tym celu pomocniczo tworzymy ksiegarnie"<<std::endl;
-  bs = new Bookshop("KSIEGARNIA", "POMOCNICZA", 987.65, &bs1, &bs2);
+  Bookshop bs("KSIEGARNIA", "POMOCNICZA", 99999.99);
   std::cout<<std::endl<<"Nastepnie tworzymy ksiazki i dodajemy je do listy"<<std::endl;
-  for(i = 0 ; i < 4 ; i++)
-    bs->add_to_list_book("KSIAZKA", "AUTOR", "WYDAWCA", i+1, 1);
-    bs->add_to_list_book("TAKA", "KTORA", "JEST", i+1, 1);  //ksiazka tworzona poza petla - do wyszukiwania ksiazek
-  std::cout<<std::endl<<"Lista obiektow utworzonych dynamicznie:";
-  bs->show_book_list(0);
+  std::cout<<"Ze wzgledu na specyfikacje funkcji uzytkownik proszony jest o podanie potrzebnych danych"<<std::endl;
+  for(i = 0 ; i < 5 ; i++)
+    bs.new_book();
+  std::cout<<std::endl<<"Lista obiektow utworzonych dynamicznie:"<<std::endl;
+  bs.show_books();
+  std::cout<<"Przeciazenie operatora = (pierwszy obiekt listy = obiekt utworzony automatycznie):"<<std::endl;
+    *(bs.get_firstB()->get_obj()) = b;
+  std::cout<<std::endl<<"Lista obiektow utworzonych dynamicznie po zmianie:";
+  bs.show_books();
 
 
-  std::cout<<std::endl<<"Testujemy wyszukiwanie ksiazek"<<std::endl<<"Szukamy ksiazki o tytulu \"TAKA\", napisanej przez \"KTORA\", wydanej przez \"JEST\""<<std::endl;
-  if(bs->find_book("TAKA", "KTORA", "JEST") != NULL)
-  {
-    cout<<"Ksiazka zostala znaleziona. Oto ona:"<<std::endl;
-    cout<<bs->find_book("TAKA", "KTORA", "JEST");
-  }
+  std::cout<<std::endl<<"Testujemy wyszukiwanie ksiazek"<<std::endl<<"Szukamy ksiazki o tytule \"Ksiazka\", napisanej przez \"Autor\", wydanej przez \"Wydawca\""<<std::endl;
+  if(bs.find_book("Ksiazka", "Autor", "Wydawca") != NULL)
+    cout<<"Ksiazka zostala znaleziona."<<std::endl;
   else std::cout<<"Ksiazka nie zostala znaleziona"<<std::endl;
 
 
-  std::cout<<std::endl<<"Teraz szukamy ksiazki o tytulu \"TAKA\", napisanej przez \"KTOREJ\", wydanej przez \"NIE_MA\""<<std::endl;
-  if(bs->find_book("TAKA", "KTOREJ", "NIE_MA") != NULL)
-  {
-    cout<<"Ksiazka zostala znaleziona. Oto ona:"<<std::endl;
-    cout<<bs->find_book("TAKA", "KTOREJ", "NIE_MA");
-  }
+  std::cout<<std::endl<<"Teraz szukamy ksiazki o tytulu \"uegrqIUNF\", napisanej przez \"JSEBFIAWbe\", wydanej przez \"OISNFdgs\""<<std::endl;
+  if(bs.find_book("uegrqIUNF", "JSEBFIAWbe", "OISNFdgs") != NULL)
+    cout<<"Ksiazka zostala znaleziona."<<std::endl;
   else std::cout<<"Ksiazka nie zostala znaleziona"<<std::endl;
 
 
   std::cout<<std::endl<<"Usuwamy obiekty kolejno: ostatni, trzeci, pierwszy"<<std::endl;
-  bs->delete_book(5);
-  bs->delete_book(3);
-  bs->delete_book(1);
+  bs.delete_book(5);
+  bs.delete_book(3);
+  bs.delete_book(1);
+
 
   std::cout<<std::endl<<"Lista ksiazek po usunieciu obiektow:";
-  bs->show_book_list(0);
+  bs.show_books();
   std::cout<<std::endl<<"Usuwamy pozostale obiekty utworzone dynamicznie"<<std::endl;
-  while(bs->get_firstB() != NULL)
-    bs->delete_book(1);
-  std::cout<<std::endl<<"Usuwamy pomocnicza ksiegarnie"<<std::endl;
-  delete(bs);
+  while(bs.get_firstB() != NULL)
+    bs.delete_book(1);
+
 
   std::cout<<std::endl<<"Tworzymy obiekt statyczny"<<std::endl;
-  static Book b2("TO", 9.99, "KSAIZKA", "STATYCZNA", 2017, 200, 1, 0);
-  cout<<&b2;
+  static Book bo("TO", "KSAIZKA", "STATYCZNA", 9.99, 2017, 200, 1, 0);
+  cout<<&bo;
   std::cout<<std::endl<<"Obiekt statyczny zostanie usuniety na zakonczeniu programu"<<std::endl;
 
 
-  std::cout<<std::endl<<"Po zakonczonym tescie niszczony jest obiekt automatyczny"<<std::endl;
+  std::cout<<std::endl<<"Po zakonczonym tescie niszczone sa obiekty automatyczne"<<std::endl;
 }
 
 
 void testsc()
 {
-  Bookshop *bs, *bf = NULL, *bl = NULL;
   int i;
 
   std::cout<<std::endl<<"TEST KLASY CUSTOMER"<<std::endl<<std::endl<<"Na poczatek tworzymy obiekt automatyczny"<<std::endl;
@@ -127,34 +122,37 @@ void testsc()
   std::cout<<std::endl<<"Testujemy przegladanie kolekcji klienta"<<std::endl<<"Do kolekcji nie zostala dodana jeszcze zadna ksiazka:"<<std::endl;
   c.show_collection();
   std::cout<<std::endl<<"Dodajemy kolejno dwie ksiazki."<<std::endl;
-  c.add_to_collection("Ksiazka1", "Autor1", "Wydawca1", 1);
-  c.add_to_collection("Ksiazka2", "Autor2", "Wydawca2", 1);
+  std::cout<<"Tworzymy automatycznie dwie ksiazki, aby moc dodac je do kolekcji."<<std::endl;
+  Book b1("Ksiazka1", "Autor1", "Wydawca1", 8.88, 2017, 123, 1, 0);
+  Book b2("Ksiazka2", "Autor2", "Wydawca2", 9.99, 2016, 456, 1, 0);
+  std::cout<<"Dodajemy nowo powstale ksiazki do kolekcji"<<std::endl;
+  c.add_to_collection(b1);
+  c.add_to_collection(b2);
   std::cout<<std::endl<<"Po dodaniu dwoch ksiazek:";
   c.show_collection();
   std::cout<<"Powstale ksiazki zostana usuniete podczas niszczenia obiektu automatycznego"<<std::endl;
 
 
   std::cout<<std::endl<<"Tworzymy okiekty dynamicznie"<<std::endl<<"W tym celu pomocniczo tworzymy ksiegarnie"<<std::endl;
-  bs = new Bookshop("KSIEGARNIA", "POMOCNICZA", 987.65, &bf, &bl);
+  Bookshop bs("Ksiegarnia", "Pomocnicza", 99999.99);
   std::cout<<"Ze wzgledu na specyfikacje funkcji uzytkownik proszony jest o podanie potrzebnych danych"<<std::endl;
   for(i = 0 ; i < 5 ; i++)
-    bs->add_to_list_customer();
+    bs.new_customer();
+
 
   std::cout<<std::endl<<"Lista obiektow utworzonych dynamicznie:"<<std::endl;
-  bs->show_customer_list();
+  bs.show_customers();
 
 
   std::cout<<"Usuwamy obiekty kolejno: ostatni, trzeci, pierwszy"<<std::endl;
-  bs->delete_customer(5);
-  bs->delete_customer(3);
-  bs->delete_customer(1);
+  bs.delete_customer(5);
+  bs.delete_customer(3);
+  bs.delete_customer(1);
   std::cout<<std::endl<<"Lista klientow po usunieciu obiektow:"<<std::endl;
-  bs->show_customer_list();
+  bs.show_customers();
   std::cout<<std::endl<<"Usuwamy pozostale obiekty utworzone dynamicznie"<<std::endl;
-  while(bs->get_firstC() != NULL)
-    bs->delete_customer(1);
-  std::cout<<std::endl<<"Usuwamy pomocnicza ksiegarnie"<<std::endl;
-  delete(bs);
+  while(bs.get_firstC() != NULL)
+    bs.delete_customer(1);
 
 
   std::cout<<std::endl<<"Tworzymy obiekt statyczny"<<std::endl;
@@ -162,48 +160,46 @@ void testsc()
   cout<<&c2;
   std::cout<<std::endl<<"Obiekt statyczny zostanie usuniety na zakonczeniu programu"<<std::endl;
 
-  std::cout<<std::endl<<"Po zakonczonym tescie niszczony jest obiekt automatyczny"<<std::endl;
+
+  std::cout<<std::endl<<"Po zakonczonym tescie niszczone sa obiekty automatyczne"<<std::endl;
 }
 
 void testse()
 {
-  Bookshop *bs, *bf = NULL, *bl = NULL;
   int i;
 
   std::cout<<std::endl<<"TEST KLASY EMPLOYEE"<<std::endl<<std::endl<<"Na poczatek tworzymy obiekt automatyczny"<<std::endl;
-  Employee e("Piotr", "Nowak", 25, 1200.00);
+  Employee e("Piotr", "Nowak", 1200.00);
   cout<<&e;
 
 
   std::cout<<std::endl<<"Tworzymy okiekty dynamicznie"<<std::endl<<"W tym celu pomocniczo tworzymy ksiegarnie"<<std::endl;
-  bs = new Bookshop("KSIEGARNIA", "POMOCNICZA", 987.65, &bf, &bl);
+  Bookshop bs("KSIEGARNIA", "POMOCNICZA", 999999.99);
   std::cout<<"Ze wzgledu na specyfikacje funkcji uzytkownik proszony jest o podanie potrzebnych danych"<<std::endl;
   for(i = 0 ; i < 5 ; i++)
-    bs->add_to_list_employee();
+    bs.new_employee();
   std::cout<<std::endl<<"Lista obiektow utworzonych dynamicznie:"<<std::endl;
-  bs->show_employee_list();
+  bs.show_employees();
 
 
   std::cout<<"Usuwamy obiekty kolejno: ostatni, trzeci, pierwszy"<<std::endl;
-  bs->delete_employee(5);
-  bs->delete_employee(3);
-  bs->delete_employee(1);
+  bs.delete_employee(5);
+  bs.delete_employee(3);
+  bs.delete_employee(1);
   std::cout<<std::endl<<"Lista pracownikowni po usunieciu obiektow:"<<std::endl;
-  bs->show_employee_list();
+  bs.show_employees();
 
 
   std::cout<<std::endl<<"Usuwamy pozostale obiekty utworzone dynamicznie"<<std::endl;
-  while(bs->get_firstE() != NULL)
-    bs->delete_employee(1);
-  std::cout<<"Usuwamy pomocnicza ksiegarnie"<<std::endl;
-  delete(bs);
+  while(bs.get_firstE() != NULL)
+    bs.delete_employee(1);
 
 
   std::cout<<std::endl<<"Tworzymy obiekt statyczny"<<std::endl;
-  static Employee e2("Ewelina", "Chmielewska", 19, 10.00);
+  static Employee e2("Ewelina", "Chmielewska", 10.00);
   cout<<&e2;
   std::cout<<std::endl<<"Obiekt statyczny zostanie usuniety na zakonczeniu programu"<<std::endl;
 
 
-  std::cout<<std::endl<<"Po zakonczonym tescie niszczony jest obiekt automatyczny"<<std::endl;
+  std::cout<<std::endl<<"Po zakonczonym tescie niszczone sa obiekty automatyczne"<<std::endl;
 }

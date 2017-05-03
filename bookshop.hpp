@@ -4,6 +4,9 @@
 #include "employee.hpp"  //book.hpp zostaje dolaczony poprzez inne pliki naglowkowe
 #include "customer.hpp"
 
+extern char* load(char*, int length);
+extern double load_n();
+
 using namespace std;
 class Bookshop
 {
@@ -49,7 +52,7 @@ class Bookshop
   void new_employee();
   void new_customer();
 
-  void delate_book(int n);
+  void delete_book(int n);
   void delete_employee(int n);
   void delete_customer(int n);
 

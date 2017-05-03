@@ -7,17 +7,18 @@ extern void testse();
 //menu glowne
 void main_menu(Owner &ow)
 {
-  char choice, choice2;
+  char choice[2], choice2[2];
+  choice[0] = '0';
 
-  while(choice != '5'){
-    std::cout<<"Wybierz osobe"<<std::endl;
+  while(choice[0] != '5'){
+    std::cout<<std::endl<<"Wybierz osobe"<<std::endl;
     std::cout<<"1. Wlasciciel"<<std::endl;
     std::cout<<"2. Pracownik"<<std::endl;
     std::cout<<"3. Klient"<<std::endl;
     std::cout<<"4. Testy"<<std::endl;
     std::cout<<"5. Koniec"<<std::endl;
-    std::cin>>choice;
-    switch (choice)
+    load(choice, 2);
+    switch (choice[0])
     {
       case '1': //wlasciciel
         bs_menu1(ow);
@@ -36,16 +37,16 @@ void main_menu(Owner &ow)
         break;
       case '4': //testy
         std::cout<<"TESTY"<<std::endl<<"1. Test klasy bookshop"<<std::endl<<"2. Test klasy book"<<std::endl<<"3. Test klasy customer"<<std::endl<<"4. Test klasy employee"<<std::endl;
-        std::cin>>choice2;
-//        if(choice2 == '1')
-//          tests();
-//        else if(choice2 == '2')
-//          testsb();
-//        else if(choice2 == '3')
-//          testsc();
-//        else if(choice2 == '4')
-//            testse();
-        break;
+        load(choice2, 2);
+        if(choice2[0] == '1')
+          tests();
+        else if(choice2[0] == '2')
+          testsb();
+        else if(choice2[0] == '3')
+          testsc();
+        else if(choice2[0] == '4')
+          testse();
+      break;
       case '5':
         break;
       default:
@@ -59,16 +60,18 @@ void main_menu(Owner &ow)
 void bs_menu1(Owner &ow)
 {
   int number;
-  char ii = '0', choice;
-  while(ii == '0'){
+  char choice[2];
+  choice[0] = '0';
+
+  while(choice[0] != '5'){
     std::cout<<std::endl<<"Wlasciciel"<<std::endl;
     std::cout<<"1. wyswietl liste ksiegarni"<<std::endl;
     std::cout<<"2. stworz nowe ksiegarnie"<<std::endl;
     std::cout<<"3. usun ksiegarnie"<<std::endl;
     std::cout<<"4. zarzadzaj ksiegarnia"<<std::endl;
     std::cout<<"5. wyjscie"<<std::endl;
-    std::cin>>choice;
-    switch(choice)
+    load(choice, 2);
+    switch(choice[0])
     {
       case '1':
         if(ow.get_firstBs() == NULL) std::cout<<"Nie ma jeszcze zadnych ksiegarni"<<std::endl;
@@ -84,7 +87,7 @@ void bs_menu1(Owner &ow)
         {
           ow.show_bs();
           std::cout<<std::endl<<"Wybierz numer ksiegarni, ktora chcesz usunac"<<std::endl;
-          std::cin>>number;
+          number = load_n();
           ow.delete_bs(number);
         }
         break;
@@ -95,7 +98,6 @@ void bs_menu1(Owner &ow)
           bs_menu2(ow);
         break;
       case '5':
-        ii = '1';
         break;
       default:
         std::cout<<"Nie ma takiej mozliwosci"<<std::endl;
@@ -111,10 +113,11 @@ void bs_menu2(Owner &ow)
   Bookshop *bs;
   List<Employee> *em;
   double sum = 0;
-  char choice = '0';
+  char choice[2];
   int number;
+  choice[0] = '0';
 
-  while(choice != '7'){
+  while(choice[0] != '7'){
     bs = currBs->get_obj();
     std::cout<<std::endl<<"Ksiegarnia "<<bs->get_name()<<" w miescie "<<bs->get_city()<<std::endl;
     std::cout<<"1. Wyswietl liste pracownikow"<<std::endl;
@@ -124,9 +127,9 @@ void bs_menu2(Owner &ow)
     std::cout<<"5. Zarzadzaj zamowieniami"<<std::endl; //akceptowanie/odrzucanie
     std::cout<<"6. Nastepna ksiegarnia"<<std::endl;
     std::cout<<"7. Wyjscie"<<std::endl;
-    std::cin>>choice;
+    load(choice, 2);
 
-    switch(choice)
+    switch(choice[0])
     {
       case '1':
         bs->show_employees();
@@ -141,7 +144,7 @@ void bs_menu2(Owner &ow)
         {
           bs->show_employees();
           std::cout<<std::endl<<"Wybierz numer pracownika, ktorego chcesz usunac."<<std::endl;
-          std::cin>>number;
+          number = load_n();
           bs->delete_employee(number);
         }
         break;
@@ -177,13 +180,14 @@ void bs_menu2(Owner &ow)
 //menu pracownika - ogolne
 void em_menu1(Owner &ow)
 {
-  char choice = '0';
+  char choice[2];
   int number;
   List<Bookshop> *currBs = ow.get_firstBs();
   Bookshop *bs;
   List<Employee> *currEm;
+  choice[0] = '0';
 
-  while(choice != '3')
+  while(choice[0] != '3')
   {
     bs = currBs->get_obj();
     currEm = bs->get_firstE();
@@ -191,9 +195,9 @@ void em_menu1(Owner &ow)
     std::cout<<"1. Wybierz pracownika"<<std::endl;
     std::cout<<"2. Przejdz do nastepnej ksiegarni"<<std::endl;
     std::cout<<"3. Wyjscie"<<std::endl;
-    std::cin>>choice;
+    load(choice, 2);
 
-    switch(choice)
+    switch(choice[0])
     {
       case '1':
         if(bs->get_firstE() == NULL)
@@ -202,7 +206,7 @@ void em_menu1(Owner &ow)
         {
           bs->show_employees();
           std::cout<<"Wybierz numer pracownika, w ktorego chcesz sie wcielic"<<std::endl;
-          std::cin>>number;
+          number = load_n();
           for(int i = 1 ; i < number ; i++)
             currEm = currEm->get_next();
           em_menu2(currEm->get_obj(), bs);
@@ -223,10 +227,11 @@ void em_menu1(Owner &ow)
 void em_menu2(Employee *em, Bookshop *bs)
 {
   int number;
-  char choice = '0';
+  char choice[2];
+  choice[0] = '0';
   if(em != NULL  && bs != NULL)
   {
-    while(choice != '5'){
+    while(choice[0] != '5'){
       std::cout<<std::endl<<"Pracownik "<<em->get_name()<<" "<<em->get_surname()<<std::endl;
       std::cout<<"\"Hmm... co by tu zrobic?\""<<std::endl;
       std::cout<<"1. Pokaz liste wszystkich ksiazek"<<std::endl;
@@ -235,8 +240,8 @@ void em_menu2(Employee *em, Bookshop *bs)
       std::cout<<"4. Wyswietl aktualne zamowienie"<<std::endl;
       std::cout<<"5. Wycofaj ksiazke z ksiegarni"<<std::endl;
       std::cout<<"6. Stan za kasa i czekaj na klientow"<<std::endl;
-      std::cin>>choice;
-      switch(choice)
+      load(choice, 2);
+      switch(choice[0])
       {
         case '1':
           bs->show_books();
@@ -256,8 +261,8 @@ void em_menu2(Employee *em, Bookshop *bs)
           break;
         case '5':
           bs->show_books();
-          cin>>number;
-          bs->delate_book(number);
+          number = load_n();
+          bs->delete_book(number);
         case '6':
           break;
         default:
@@ -271,14 +276,15 @@ void em_menu2(Employee *em, Bookshop *bs)
 //menu klienta - ogolne
 void cu_menu1(Owner &ow)
 {
-  char choice = '0';
+  char choice[2];
   int number;
   List<Bookshop> *currBs = ow.get_firstBs();
   List<Customer> *currCu;
   Bookshop *bs = currBs->get_obj();
+  choice[0] = '0';
   if(currBs != NULL)
   {
-    while(choice != '6')
+    while(choice[0] != '6')
     {
       currCu = currBs->get_obj()->get_firstC();
       std::cout<<std::endl<<"KLIENT - ksiegarnia "<<bs->get_name()<<" w miescie "<<bs->get_city()<<std::endl;
@@ -288,9 +294,9 @@ void cu_menu1(Owner &ow)
       std::cout<<"4. Wybierz klienta"<<std::endl;
       std::cout<<"5. Przejdz do nastepnej ksiegarni"<<std::endl;
       std::cout<<"6. Wyjscie"<<std::endl;
-      std::cin>>choice;
+      load(choice, 2);
 
-      switch (choice)
+      switch (choice[0])
       {
         case '1':
           bs->show_customers();
@@ -305,7 +311,7 @@ void cu_menu1(Owner &ow)
           {
             bs->show_customers();
             std::cout<<std::endl<<"Wybierz numer klienta, ktorego chcesz usunac."<<std::endl;
-            std::cin>>number;
+            number = load_n();
             bs->delete_customer(number);
           }
           break;
@@ -318,7 +324,7 @@ void cu_menu1(Owner &ow)
           {
             bs->show_customers();
             std::cout<<"Wybierz numer klienta, w ktorego chcesz sie wcielic"<<std::endl;
-            std::cin>>number;
+            number = load_n();
             for(int i = 1 ; i < number ; i++)
               currCu = currCu->get_next();
             cu_menu2(currCu->get_obj(), bs);
@@ -343,10 +349,11 @@ void cu_menu1(Owner &ow)
 void cu_menu2(Customer *cu, Bookshop *bs)
 {
   List<Book> *currBo;
-  char choice = '0';
+  char choice[2];
   int number, i = 0;
+  choice[0] = '0';
 
-  while(choice != '7'){
+  while(choice[0] != '7'){
     std::cout<<"Klient "<<cu->get_name()<<" "<<cu->get_surname()<<std::endl;
     std::cout<<"Ksiegarnia"<<bs->get_name()<<" w miescie "<<bs->get_city()<<std::endl;
     std::cout<<"1. Obejrzyj ksiazki"<<std::endl;
@@ -356,9 +363,9 @@ void cu_menu2(Customer *cu, Bookshop *bs)
     std::cout<<"5. Przejrzyj swoja kolekcje"<<std::endl;
     std::cout<<"6. Sprawdz zawartosc portfela"<<std::endl;
     std::cout<<"7. Wyjdz z ksiegarni"<<std::endl;
-    std::cin>>choice;
+    load(choice, 2);
 
-    switch(choice)
+    switch(choice[0])
     {
       case '1':
         bs->show_books();
@@ -369,7 +376,7 @@ void cu_menu2(Customer *cu, Bookshop *bs)
           std::cout<<"Lista ksiazek do kupienia:"<<std::endl;
           bs->show_books();                               //wyswietlanie ksiazek ma nie obejmowac tych z zerowa iloscia egz.
           std::cout<<"-Poprosze ksiazke z numerem...";
-          std::cin>>number;
+          number = load_n();
 
           while(true)  //ustawianie wskaznika na wybrana przez klienta ksiazke
           {

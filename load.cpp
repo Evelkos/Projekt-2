@@ -1,10 +1,10 @@
 #include<iostream>
 #include<cstring>
+
 //wczytuje ciag wyrazow, dlugosc ciagu ograniczona
 char* load(char *words, int length){
 	char *result;
 	char *wEnd;  //koniec ciagu wyrazow
-
 	result = fgets(words, length, stdin);
 	if(words != NULL){
 		wEnd = strchr(words, '\n');

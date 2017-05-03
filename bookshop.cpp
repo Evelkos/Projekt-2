@@ -1,5 +1,5 @@
 #include "bookshop.hpp"
-extern
+#include <ctime>
 
 int Bookshop::numBookshops = 0;
 
@@ -55,19 +55,19 @@ void Bookshop::show_order(){if(oA == 0 || order == NULL) std::cout<<"Zadne zamow
 void Bookshop::new_book()
 {
   List<Book> *bo;
-  string t, a, p;
+  char t[20], a[20], p[20];
   int no, y, pag;
   double pr;
 
   srand(time(NULL));
   y = rand()%50+1967;
   pag = rand()%400+154;
-  std::cout<<"Tytul: ";                                                        std::cin>>t;
-  std::cout<<"Autor: ";                                                        std::cin>>a;
-  std::cout<<"Wydawca: ";                                                      std::cin>>p;
-  std::cout<<"Ilosc zamawianych egzemplarzy: ";                                std::cin>>no;
+  std::cout<<"Tytul: ";                                                        load(t, 20);
+  std::cout<<"Autor: ";                                                        load(a, 20);
+  std::cout<<"Wydawca: ";                                                      load(p, 20);
+  std::cout<<"Ilosc zamawianych egzemplarzy: ";                                no = load_n();
   std::cout<<"Cena egzemplarza w hurtowni: "<<quantity_pr(y, pag)<<std::endl;
-  std::cout<<"Ustal cene ksiazki w ksiegarni: ";                               std::cin>>pr;
+  std::cout<<"Ustal cene ksiazki w ksiegarni: ";                               pr = load_n();
 
   Book b(t, a, p, pr, y, pag, 0, no);
   if((bo = find_o(b, firstB)) != NULL){bo->get_obj()->set_nOrd(bo->get_obj()->get_nOrd() + no - bo->get_obj()->get_number());}
@@ -77,12 +77,12 @@ void Bookshop::new_book()
 //tworzy nowego klienta na podstawie wprowadzonych danych, umieszcza go na koncu listy klientow, zwraca nan wskaznik
 void Bookshop::new_customer()
 {
-  std::string n, s;
+  char n[20], s[20];
   double m;
 
-  std::cout<<"Imie: ";         std::cin>>n;
-  std::cout<<"Nazwisko: ";     std::cin>>s;
-  std::cout<<"Pieniadze: ";    std::cin>>m;
+  std::cout<<"Imie: ";         load(n, 20);
+  std::cout<<"Nazwisko: ";     load(s, 20);
+  std::cout<<"Pieniadze: ";    m = load_n();
 
   Customer c(n, s, m);
   firstC = new_o(firstC, c);
@@ -91,13 +91,13 @@ void Bookshop::new_customer()
 //tworzy nowego pracownika na podstawie wybranych przez uzytkonika danych
 void Bookshop::new_employee()
 {
-  std::string n, s;
+  char n[20], s[20];
   double sal;
 
   std::cout<<"Nowy pracownik: "<<std::endl;
-  std::cout<<"Imie: ";       std::cin>>n;
-  std::cout<<"Nazwisko: ";   std::cin>>s;
-  std::cout<<"Pensja: ";     std::cin>>sal;
+  std::cout<<"Imie: ";       load(n, 20);
+  std::cout<<"Nazwisko: ";   load(s, 20);
+  std::cout<<"Pensja: ";     sal = load_n();
 
   Employee e(n, s, sal);
   firstE = new_o(firstE, e);
@@ -117,7 +117,7 @@ void Bookshop::order_e()
       std::cout<<"\""<<curr->get_obj()->get_name()<<"\"  "<<curr->get_obj()->get_author()<<"  "<<curr->get_obj()->get_publisher()<<std::endl;
       std::cout<<"Ilosc potrzebnych egzemplarzy: "<<curr->get_obj()->get_nOrd()<<std::endl;
 
-      while(n < curr->get_obj()->get_nOrd()){std::cout<<"Zamow: ";  std::cin>>n;}
+      while(n < curr->get_obj()->get_nOrd()){std::cout<<"Zamow: ";  n = load_n();}
       if(n > 0)
       {
         curr->get_obj()->set_nOrd(n);               //ustawianie odpowiedniego nOrd (dla operatora przypisania w new_o)
@@ -137,7 +137,7 @@ void Bookshop::order_e()
 }
 
 //usuwa ksiazke o zadanym numerze, zwraca do budzetu 30% ceny hurtowej egzemplarzy
-void Bookshop::delate_book(int n)
+void Bookshop::delete_book(int n)
 {
   int i;
   List<Book> *current = firstB;

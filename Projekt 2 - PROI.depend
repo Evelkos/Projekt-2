@@ -100,9 +100,9 @@
 	<iostream>
 	<cstdlib>
 
-1493643929 /home/ewelina/Pulpit/Projekt-2/debug_head.hpp
+1493834786 /home/ewelina/Pulpit/Projekt-2/debug_head.hpp
 
-1493764339 source:/home/ewelina/Pulpit/Projekt-2/customer.cpp
+1493833892 source:/home/ewelina/Pulpit/Projekt-2/customer.cpp
 	"customer.hpp"
 
 1493765961 /home/ewelina/Pulpit/Projekt-2/customer.hpp
@@ -118,25 +118,33 @@
 1493765978 /home/ewelina/Pulpit/Projekt-2/employee.hpp
 	"book.hpp"
 
-1493804453 source:/home/ewelina/Pulpit/Projekt-2/main.cpp
+1493830914 source:/home/ewelina/Pulpit/Projekt-2/main.cpp
 	"interface.hpp"
 
-1493806024 /home/ewelina/Pulpit/Projekt-2/bookshop.hpp
+1493833662 /home/ewelina/Pulpit/Projekt-2/bookshop.hpp
 	"employee.hpp"
 	"customer.hpp"
 
-1493811041 source:/home/ewelina/Pulpit/Projekt-2/bookshop.cpp
+1493833646 source:/home/ewelina/Pulpit/Projekt-2/bookshop.cpp
 	"bookshop.hpp"
+	<ctime>
 
-1493804970 source:/home/ewelina/Pulpit/Projekt-2/owner.cpp
+1493834773 source:/home/ewelina/Pulpit/Projekt-2/owner.cpp
 	"owner.hpp"
 
 1493766732 /home/ewelina/Pulpit/Projekt-2/owner.hpp
 	"bookshop.hpp"
 
-1493808780 source:/home/ewelina/Pulpit/Projekt-2/interface.cpp
+1493834612 source:/home/ewelina/Pulpit/Projekt-2/interface.cpp
 	"interface.hpp"
 
 1493765842 /home/ewelina/Pulpit/Projekt-2/interface.hpp
+	"owner.hpp"
+
+1493824246 source:/home/ewelina/Pulpit/Projekt-2/load.cpp
+	<iostream>
+	<cstring>
+
+1493834664 source:/home/ewelina/Pulpit/Projekt-2/tests.cpp
 	"owner.hpp"
 

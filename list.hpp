@@ -47,7 +47,7 @@ List<T>* delete_o(int n, List<T> *first)
   List<T> *current = first;
 
   if(first != NULL){
-    if(first == first->get_next())  first = NULL;
+    if(first == first->get_next())  {first = NULL;}
     else if(n == 1)
     {
       (first->get_previous())->set_next(first->get_next());

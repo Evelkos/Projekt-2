@@ -44,6 +44,7 @@
 		<Unit filename="interface.cpp" />
 		<Unit filename="interface.hpp" />
 		<Unit filename="list.hpp" />
+		<Unit filename="load.cpp" />
 		<Unit filename="main.cpp" />
 		<Unit filename="owner.cpp" />
 		<Unit filename="owner.hpp" />

@@ -36,7 +36,7 @@ void Owner::delete_bs(int n)
   for(i = 1 ; i < n ; i++)
     current = current->get_next();
   budget += current->get_obj()->get_budget();
-  delete_o(n, firstBs);
+  firstBs = delete_o(n, firstBs);
 }
 
 //akceptowanie zlozonego zamowienia

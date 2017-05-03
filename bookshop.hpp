@@ -55,7 +55,6 @@ class Bookshop
 
   List<Book>* find_book(std::string t, std::string a, std::string p);
 
-  void order_b();     //do klienta
   void order_e();     //do pracownika
   void show_order();  //do pracownika
 

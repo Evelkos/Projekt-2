@@ -10,7 +10,7 @@ void main_menu(Owner &ow)
   char choice, choice2;
 
   while(choice != '5'){
-    std::cout<<std::endl<<"Wybierz osobe"<<std::endl;
+    std::cout<<"Wybierz osobe"<<std::endl;
     std::cout<<"1. Wlasciciel"<<std::endl;
     std::cout<<"2. Pracownik"<<std::endl;
     std::cout<<"3. Klient"<<std::endl;
@@ -24,13 +24,13 @@ void main_menu(Owner &ow)
         break;
       case '2': //pracownik
         if(ow.get_firstBs() == NULL)
-          std::cout<<std::endl<<"Nie powstala jeszcze zadna ksiegarnia. Nie moze byc zadnego pracownika."<<std::endl<<std::endl;
+          std::cout<<"Nie powstala jeszcze zadna ksiegarnia. Nie moze byc zadnego pracownika."<<std::endl<<std::endl;
         else
           em_menu1(ow);
         break;
       case '3': //klient
         if(ow.get_firstBs() == NULL)
-          std::cout<<std::endl<<"Nie powstala jeszcze zadna ksiegarnia. Nie moze byc zadnego klienta."<<std::endl<<std::endl;
+          std::cout<<"Nie powstala jeszcze zadna ksiegarnia. Nie moze byc zadnego klienta."<<std::endl<<std::endl;
         else
           cu_menu1(ow);
         break;
@@ -71,7 +71,8 @@ void bs_menu1(Owner &ow)
     switch(choice)
     {
       case '1':
-        ow.show_bs();
+        if(ow.get_firstBs() == NULL) std::cout<<"Nie ma jeszcze zadnych ksiegarni"<<std::endl;
+        else ow.show_bs();
         break;
       case '2':
         ow.new_bs();
@@ -185,6 +186,7 @@ void em_menu1(Owner &ow)
   while(choice != '3')
   {
     bs = currBs->get_obj();
+    currEm = bs->get_firstE();
     std::cout<<std::endl<<"PRACOWNIK - ksiegarnia "<<bs->get_name()<<" w miescie "<<bs->get_city()<<std::endl;
     std::cout<<"1. Wybierz pracownika"<<std::endl;
     std::cout<<"2. Przejdz do nastepnej ksiegarni"<<std::endl;
@@ -220,34 +222,43 @@ void em_menu1(Owner &ow)
 //menu pracownika - konkretny pracownik
 void em_menu2(Employee *em, Bookshop *bs)
 {
-  int ii = 1;
+  int number;
   char choice = '0';
   if(em != NULL  && bs != NULL)
   {
-    while(ii == 1){
+    while(choice != '5'){
       std::cout<<std::endl<<"Pracownik "<<em->get_name()<<" "<<em->get_surname()<<std::endl;
       std::cout<<"\"Hmm... co by tu zrobic?\""<<std::endl;
       std::cout<<"1. Pokaz liste wszystkich ksiazek"<<std::endl;
       std::cout<<"2. Dopisz ksiazke do zamowienia"<<std::endl;
       std::cout<<"3. Zloz zamowienie"<<std::endl;
       std::cout<<"4. Wyswietl aktualne zamowienie"<<std::endl;
-      std::cout<<"5. Stan za kasa i czekaj na klientow"<<std::endl;
+      std::cout<<"5. Wycofaj ksiazke z ksiegarni"<<std::endl;
+      std::cout<<"6. Stan za kasa i czekaj na klientow"<<std::endl;
       std::cin>>choice;
       switch(choice)
       {
-        case 1:
+        case '1':
           bs->show_books();
           break;
-        case 2:
-          bs->order_b();
+        case '2':
+          bs->new_book();
+          std::cout<<"Zamowienie zostalo zlozone"<<std::endl;
           break;
-        case 3:
-          bs->order_e();
+        case '3':
+          if(bs->get_firstB() != NULL)
+            bs->order_e();
+          else
+            std::cout<<"Do ksiegarni nie zostala przypisana jeszcze zadna ksiazka. Nie mozna zadnej zamowic."<<std::endl;
           break;
-        case 4:
+        case '4':
           bs->show_order();
           break;
-        case 5:
+        case '5':
+          bs->show_books();
+          cin>>number;
+          bs->delate_book(number);
+        case '6':
           break;
         default:
           std::cout<<"Nie ma takiej mozliwosci."<<std::endl<<std::endl;
@@ -263,12 +274,13 @@ void cu_menu1(Owner &ow)
   char choice = '0';
   int number;
   List<Bookshop> *currBs = ow.get_firstBs();
-  List<Customer> *currCu = currBs->get_obj()->get_firstC();
+  List<Customer> *currCu;
   Bookshop *bs = currBs->get_obj();
-  if(currCu != NULL)
+  if(currBs != NULL)
   {
     while(choice != '6')
     {
+      currCu = currBs->get_obj()->get_firstC();
       std::cout<<std::endl<<"KLIENT - ksiegarnia "<<bs->get_name()<<" w miescie "<<bs->get_city()<<std::endl;
       std::cout<<"1. Wyswietl liste klientow"<<std::endl;
       std::cout<<"2. Stworz nowego klienta"<<std::endl;
@@ -324,7 +336,7 @@ void cu_menu1(Owner &ow)
     }
   }
   else
-    std::cout<<"Blad: w tej ksiegarni nie ma jeszcze klientow."<<std::endl;
+    std::cout<<"Nie istnieje jeszcze zadna ksiegarnia. Nie moze byc zadnych klientow"<<std::endl;
 }
 
 //menu klienta - konkretny klient
@@ -371,19 +383,20 @@ void cu_menu2(Customer *cu, Bookshop *bs)
           std::cout<<"Nie moge nic kupic."<<std::endl;
         break;
 
-      case 3:
-        bs->order_b();
+      case '3':
+        bs->new_book();
+        std::cout<<"Zamowienie zostalo zlozone"<<std::endl;
         break;
-      case 4:
+      case '4':
         *cu += 100.0;
         break;
-      case 5:
+      case '5':
         cu->show_collection();
         break;
-      case 6:
+      case '6':
         std::cout<<"W portfelu znajduje sie "<<cu->get_money()<<"zl"<<std::endl;
         break;
-      case 7:
+      case '7':
         std::cout<<"-Do widzenia."<<std::endl<<"-Do widzenia."<<std::endl;
         break;
       default:

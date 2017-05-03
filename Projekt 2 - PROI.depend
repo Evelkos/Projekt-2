@@ -44,52 +44,47 @@
 1493668841 source:/home/ewelina/Pulpit/Projekt 2 - PROI (kopia)/customer.cpp
 	"customer.hpp"
 
-1493667115 source:/home/ewelina/Projekt-2/book.cpp
+1493837488 source:/home/ewelina/Projekt-2/book.cpp
 	"book.hpp"
+
+1493766059 /home/ewelina/Projekt-2/book.hpp
 	"debug_head.hpp"
-
-1493646972 /home/ewelina/Projekt-2/book.hpp
-	<iostream>
-
-1493643929 /home/ewelina/Projekt-2/debug_head.hpp
-
-1493674680 source:/home/ewelina/Projekt-2/bookshop.cpp
-	"bookshop.hpp"
-
-1493674612 /home/ewelina/Projekt-2/bookshop.hpp
-	"debug_head.hpp"
-	"list.hpp"
-	"book.hpp"
-	"employee.hpp"
-	"customer.hpp"
-
-1493668539 /home/ewelina/Projekt-2/list.hpp
 	<iostream>
 	<cstdlib>
-	"book.hpp"
 
-1493652187 /home/ewelina/Projekt-2/employee.hpp
-	"debug_head.hpp"
-	"book.hpp"
+1493834786 /home/ewelina/Projekt-2/debug_head.hpp
 
-1493668824 /home/ewelina/Projekt-2/customer.hpp
-	"book.hpp"
-	"list.hpp"
-	"debug_head.hpp"
+1493833646 source:/home/ewelina/Projekt-2/bookshop.cpp
+	"bookshop.hpp"
+	<ctime>
 
-1493668841 source:/home/ewelina/Projekt-2/customer.cpp
+1493833662 /home/ewelina/Projekt-2/bookshop.hpp
+	"employee.hpp"
 	"customer.hpp"
 
-1493667162 source:/home/ewelina/Projekt-2/employee.cpp
+1493806158 /home/ewelina/Projekt-2/list.hpp
+	"book.hpp"
+
+1493765978 /home/ewelina/Projekt-2/employee.hpp
+	"book.hpp"
+
+1493837595 /home/ewelina/Projekt-2/customer.hpp
+	"book.hpp"
+	"list.hpp"
+
+1493837550 source:/home/ewelina/Projekt-2/customer.cpp
+	"customer.hpp"
+
+1493763650 source:/home/ewelina/Projekt-2/employee.cpp
 	"employee.hpp"
 
-1493652328 source:/home/ewelina/Projekt-2/main.cpp
-	"bookshop.hpp"
+1493837164 source:/home/ewelina/Projekt-2/main.cpp
+	"interface.hpp"
 
-1493670932 source:/home/ewelina/Projekt-2/owner.cpp
+1493838617 source:/home/ewelina/Projekt-2/owner.cpp
 	"owner.hpp"
 
-1493670839 /home/ewelina/Projekt-2/owner.hpp
+1493838570 /home/ewelina/Projekt-2/owner.hpp
 	"bookshop.hpp"
 
 1493766858 source:/home/ewelina/Pulpit/Projekt-2/book.cpp
@@ -146,5 +141,76 @@
 	<cstring>
 
 1493834664 source:/home/ewelina/Pulpit/Projekt-2/tests.cpp
+	"owner.hpp"
+
+1493838583 source:/home/ewelina/Projekt-2/interface.cpp
+	"interface.hpp"
+	"iomanip"
+
+1493765842 /home/ewelina/Projekt-2/interface.hpp
+	"owner.hpp"
+
+1493824246 source:/home/ewelina/Projekt-2/load.cpp
+	<iostream>
+	<cstring>
+
+1493837004 source:/home/ewelina/Projekt-2/tests.cpp
+	"owner.hpp"
+
+1493837488 source:/home/ewelina/Pulpit/Projekt 2/book.cpp
+	"book.hpp"
+
+1493766059 /home/ewelina/Pulpit/Projekt 2/book.hpp
+	"debug_head.hpp"
+	<iostream>
+	<cstdlib>
+
+1493834786 /home/ewelina/Pulpit/Projekt 2/debug_head.hpp
+
+1493844202 source:/home/ewelina/Pulpit/Projekt 2/bookshop.cpp
+	"bookshop.hpp"
+	<ctime>
+
+1493840510 /home/ewelina/Pulpit/Projekt 2/bookshop.hpp
+	"employee.hpp"
+	"customer.hpp"
+
+1493765978 /home/ewelina/Pulpit/Projekt 2/employee.hpp
+	"book.hpp"
+
+1493837595 /home/ewelina/Pulpit/Projekt 2/customer.hpp
+	"book.hpp"
+	"list.hpp"
+
+1493844202 /home/ewelina/Pulpit/Projekt 2/list.hpp
+	"book.hpp"
+
+1493842592 source:/home/ewelina/Pulpit/Projekt 2/customer.cpp
+	"customer.hpp"
+
+1493763650 source:/home/ewelina/Pulpit/Projekt 2/employee.cpp
+	"employee.hpp"
+
+1493844564 source:/home/ewelina/Pulpit/Projekt 2/interface.cpp
+	"interface.hpp"
+	"iomanip"
+
+1493765842 /home/ewelina/Pulpit/Projekt 2/interface.hpp
+	"owner.hpp"
+
+1493838570 /home/ewelina/Pulpit/Projekt 2/owner.hpp
+	"bookshop.hpp"
+
+1493824246 source:/home/ewelina/Pulpit/Projekt 2/load.cpp
+	<iostream>
+	<cstring>
+
+1493837164 source:/home/ewelina/Pulpit/Projekt 2/main.cpp
+	"interface.hpp"
+
+1493843627 source:/home/ewelina/Pulpit/Projekt 2/owner.cpp
+	"owner.hpp"
+
+1493837004 source:/home/ewelina/Pulpit/Projekt 2/tests.cpp
 	"owner.hpp"
 

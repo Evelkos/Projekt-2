@@ -12,13 +12,19 @@ Customer::~Customer()
   D(std::cout<<"Usuwamy kilenta"<<std::endl;)
 }
 
+std::ostream& operator<<(std::ostream &os, Customer *c)
+{
+  os << c->get_name()<<" "<<c->get_surname() <<" "<<c->get_money()<<std::endl;
+  return os;
+}
+
 //dodaje nowa ksiazke do listy
 void Customer::add_to_collection(Book &b)
 {
   collection = new_o(collection, b);
 }
 
-void Customer::show_collection(){if(collection == NULL)std::cout<<"Kolekcja jest pusta"<<std::endl; else show_l(collection);}
+void Customer::show_collection(){if(collection == NULL)std::cout<<std::endl<<"Kolekcja jest pusta"<<std::endl<<std::endl; else show_l(collection);}
 
 //operator przypisania - nie likwiduje listy ksiazek klienta, ktorego dane ulegly zmianie (w programie nie jest to potrzebne)
 Customer& Customer::operator= (Customer &c2)

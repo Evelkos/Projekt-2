@@ -51,6 +51,21 @@ void Bookshop::show_employees(){if(firstE == NULL) std::cout<<"Nie ma jeszcze za
 //wyswietla aktywne zamowienie
 void Bookshop::show_order(){if(oA == 0 || order == NULL) std::cout<<"Zadne zamowienie nie jest aktualnie zlozone"<<std::endl;  else  {std::cout<<"Zamowienie:"<<std::endl; show_l(order);}}
 
+//wyswietla liste dostepnych ksiazek, zwraca ich liczbe
+int Bookshop::show_books_c()
+{
+  int i = 0;
+  List<Book> *b = firstB;
+
+  do
+  {
+    if(b->get_obj()->get_number() > 0)
+      std::cout<<++i<<". "<<b->get_obj();
+    b = b->get_next();
+  }while(b!= firstB);
+
+  return i;
+}
 //zbiera informacje o ksiazce, ktora ma zostac stworzona, dodaje ja do listy
 void Bookshop::new_book()
 {
@@ -106,7 +121,7 @@ void Bookshop::new_employee()
 //wysylanie zamowienia (w domysle: przez pracownika)
 void Bookshop::order_e()
 {
-  int n = -1;
+  int n, number;  //number - ilosc egzemplarzy danej ksiazki w ksiegarni
   List<Book> *curr = firstB;
 
   if(firstB != NULL)
@@ -114,15 +129,18 @@ void Bookshop::order_e()
     std::cout<<"Tworzenie zamowienia:"<<std::endl;
     do
     {
+      n = -1;
       std::cout<<"\""<<curr->get_obj()->get_name()<<"\"  "<<curr->get_obj()->get_author()<<"  "<<curr->get_obj()->get_publisher()<<std::endl;
       std::cout<<"Ilosc potrzebnych egzemplarzy: "<<curr->get_obj()->get_nOrd()<<std::endl;
 
       while(n < curr->get_obj()->get_nOrd()){std::cout<<"Zamow: ";  n = load_n();}
       if(n > 0)
       {
-        curr->get_obj()->set_nOrd(n);               //ustawianie odpowiedniego nOrd (dla operatora przypisania w new_o)
+        number = curr->get_obj()->get_number();
+        curr->get_obj()->set_number(n);               //ustawianie odpowiedniego zamawianych ezemplarzy
         order = new_o(order, *(curr->get_obj()));
-        curr->get_obj()->set_nOrd(0);               //zerowanie liczby zamowionych egzemplarzy
+        curr->get_obj()->set_number(number);          //powrot do odpowiedniej liczby egzemplarzy w ksiegarni
+        curr->get_obj()->set_nOrd(0);
       }
       curr = curr->get_next();
     }while(curr != firstB);
@@ -144,7 +162,7 @@ void Bookshop::delete_book(int n)
 
   for(i = 1 ; i < n ; i++)
     current = current->get_next();
-  budget -= 0.3*quantity_pr(current->obj.get_year(), current->obj.get_pages());
+  budget += 0.3*quantity_pr(current->obj.get_year(), current->obj.get_pages());
   firstB = delete_o(n, firstB);
 }
 

@@ -21,8 +21,9 @@ class Owner
   void set_firstBs(List<Bookshop> *fBs) {firstBs = fBs;}
 
   void show_bs();
-  void show_order(Bookshop *current);
+  void show_order(Bookshop*);
   void new_bs();
-  void delete_bs(int n);
-  void accept(Bookshop *b);
+  void delete_bs(int);
+  void accept(Bookshop*);
+  void get_cash(Bookshop*);
 };

@@ -37,6 +37,7 @@ int show_l(List<T> *first)
       current = current->get_next();
     }while(current != first);
   }
+  std::cout<<std::endl;
   return i;
 }
 

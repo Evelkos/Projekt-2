@@ -4,7 +4,7 @@ using namespace std;
 
 int main()
 {
-  Owner ow;
+  Owner ow("Ewelina", "Chmielewska", 999999.99);
   main_menu(ow);
   return 0;
 }

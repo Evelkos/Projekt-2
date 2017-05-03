@@ -47,6 +47,7 @@ class Bookshop
   void show_books();
   void show_customers();
   void show_employees();
+  int show_books_c();
 
   void new_book();
   void new_employee();

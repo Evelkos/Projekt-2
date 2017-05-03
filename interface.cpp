@@ -1,8 +1,11 @@
 #include "interface.hpp"
+#include "iomanip"
+
 extern void tests();
 extern void testsb();
 extern void testsc();
 extern void testse();
+extern void testsl();
 
 //menu glowne
 void main_menu(Owner &ow)
@@ -25,18 +28,19 @@ void main_menu(Owner &ow)
         break;
       case '2': //pracownik
         if(ow.get_firstBs() == NULL)
-          std::cout<<"Nie powstala jeszcze zadna ksiegarnia. Nie moze byc zadnego pracownika."<<std::endl<<std::endl;
+          std::cout<<"Nie powstala jeszcze zadna ksiegarnia. Nie moze byc zadnego pracownika."<<std::endl;
         else
           em_menu1(ow);
         break;
       case '3': //klient
         if(ow.get_firstBs() == NULL)
-          std::cout<<"Nie powstala jeszcze zadna ksiegarnia. Nie moze byc zadnego klienta."<<std::endl<<std::endl;
+          std::cout<<"Nie powstala jeszcze zadna ksiegarnia. Nie moze byc zadnego klienta."<<std::endl;
         else
           cu_menu1(ow);
         break;
       case '4': //testy
-        std::cout<<"TESTY"<<std::endl<<"1. Test klasy bookshop"<<std::endl<<"2. Test klasy book"<<std::endl<<"3. Test klasy customer"<<std::endl<<"4. Test klasy employee"<<std::endl;
+        std::cout<<"TESTY"<<std::endl<<"1. Test klasy Bookshop"<<std::endl<<"2. Test klasy Book"<<std::endl;
+        std::cout<<"3. Test klasy Customer"<<std::endl<<"4. Test klasy Employee"<<std::endl<<"5. Test szablonu klasy List"<<std::endl;
         load(choice2, 2);
         if(choice2[0] == '1')
           tests();
@@ -46,11 +50,13 @@ void main_menu(Owner &ow)
           testsc();
         else if(choice2[0] == '4')
           testse();
+        else if(choice2[0] == '5')
+          testsl();
       break;
       case '5':
         break;
       default:
-        std::cout<<"Nie ma takiej mozliwosci"<<std::endl<<std::endl;
+        std::cout<<"Nie ma takiej mozliwosci"<<std::endl;
         break;
     }
   }
@@ -64,7 +70,7 @@ void bs_menu1(Owner &ow)
   choice[0] = '0';
 
   while(choice[0] != '5'){
-    std::cout<<std::endl<<"Wlasciciel"<<std::endl;
+    std::cout<<std::endl<<"Wlasciciel: "<<ow.get_name()<<" "<<ow.get_surname()<<" "<<fixed<<setprecision(2)<<ow.get_budget()<<std::endl;
     std::cout<<"1. wyswietl liste ksiegarni"<<std::endl;
     std::cout<<"2. stworz nowe ksiegarnie"<<std::endl;
     std::cout<<"3. usun ksiegarnie"<<std::endl;
@@ -117,7 +123,7 @@ void bs_menu2(Owner &ow)
   int number;
   choice[0] = '0';
 
-  while(choice[0] != '7'){
+  while(choice[0] != '8'){
     bs = currBs->get_obj();
     std::cout<<std::endl<<"Ksiegarnia "<<bs->get_name()<<" w miescie "<<bs->get_city()<<std::endl;
     std::cout<<"1. Wyswietl liste pracownikow"<<std::endl;
@@ -125,8 +131,9 @@ void bs_menu2(Owner &ow)
     std::cout<<"3. Zwolnij pracownika"<<std::endl;
     std::cout<<"4. Wyplac pensje pracownikom"<<std::endl;
     std::cout<<"5. Zarzadzaj zamowieniami"<<std::endl; //akceptowanie/odrzucanie
-    std::cout<<"6. Nastepna ksiegarnia"<<std::endl;
-    std::cout<<"7. Wyjscie"<<std::endl;
+    std::cout<<"6. Odbierzu utarg"<<std::endl;
+    std::cout<<"7. Nastepna ksiegarnia"<<std::endl;
+    std::cout<<"8. Wyjscie"<<std::endl;
     load(choice, 2);
 
     switch(choice[0])
@@ -166,9 +173,12 @@ void bs_menu2(Owner &ow)
         ow.accept(bs);
         break;
       case '6':
-        currBs = currBs->get_next();
+        ow.get_cash(bs);
         break;
       case '7':
+        currBs = currBs->get_next();
+        break;
+      case '8':
         break;
       default:
         std::cout<<"Nie ma takiej mozliwosci"<<std::endl;
@@ -231,7 +241,7 @@ void em_menu2(Employee *em, Bookshop *bs)
   choice[0] = '0';
   if(em != NULL  && bs != NULL)
   {
-    while(choice[0] != '5'){
+    while(choice[0] != '6'){
       std::cout<<std::endl<<"Pracownik "<<em->get_name()<<" "<<em->get_surname()<<std::endl;
       std::cout<<"\"Hmm... co by tu zrobic?\""<<std::endl;
       std::cout<<"1. Pokaz liste wszystkich ksiazek"<<std::endl;
@@ -350,7 +360,7 @@ void cu_menu2(Customer *cu, Bookshop *bs)
 {
   List<Book> *currBo;
   char choice[2];
-  int number, i = 0;
+  int number, i;
   choice[0] = '0';
 
   while(choice[0] != '7'){
@@ -367,14 +377,16 @@ void cu_menu2(Customer *cu, Bookshop *bs)
 
     switch(choice[0])
     {
+
       case '1':
-        bs->show_books();
+        bs->show_books_c();
         break;
       case '2':
-        if(currBo != NULL)
+        i = 0;
+        currBo = bs->get_firstB();
+        number = bs->show_books_c();
+        if(currBo != NULL && number >0)
         {
-          std::cout<<"Lista ksiazek do kupienia:"<<std::endl;
-          bs->show_books();                               //wyswietlanie ksiazek ma nie obejmowac tych z zerowa iloscia egz.
           std::cout<<"-Poprosze ksiazke z numerem...";
           number = load_n();
 
@@ -382,14 +394,13 @@ void cu_menu2(Customer *cu, Bookshop *bs)
           {
             if(currBo->get_obj()->get_number() > 0)  i++;
             if(i == number)  break;
-            currBo = currBo->get_next();
+              currBo = currBo->get_next();
           }
           cu->buy(*(currBo->get_obj()));
         }
-        else
-          std::cout<<"Nie moge nic kupic."<<std::endl;
-        break;
 
+        else  std::cout<<"Nie moge nic kupic."<<std::endl;
+        break;
       case '3':
         bs->new_book();
         std::cout<<"Zamowienie zostalo zlozone"<<std::endl;

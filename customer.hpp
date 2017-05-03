@@ -32,7 +32,7 @@ class Customer
   void show_collection();
   void buy(Book&);
 
-  friend std::ostream& operator<< (std::ostream &os, Customer *c) {os << c->get_name()<<" "<<c->get_surname() <<" "<<c->get_money()<<std::endl; return os;}
+  friend std::ostream& operator<< (std::ostream&, Customer*);
   Customer& operator= (Customer &c2);
 };
 

@@ -203,3 +203,50 @@ void testse()
 
   std::cout<<std::endl<<"Po zakonczonym tescie niszczone sa obiekty automatyczne"<<std::endl;
 }
+
+void testsl()
+{
+  List<Book> *curr = NULL;
+  std::cout<<std::endl<<"TEST SZABLONU KLASY LIST"<<std::endl;
+  std::cout<<"Test klasy zostanie zrealizowany przy pomocy klasy Book"<<std::endl;
+
+
+  std::cout<<std::endl<<"Tworzymy piec przykladowych ksiazek"<<std::endl;
+  Book b1("A", "A", "A"), b2("B", "B", "B"), b3("C", "C", "C"), b4("D", "D", "D"), b5("E", "E", "E");
+  std::cout<<"Nastepnie tworzymy wskaznik na pierwszy obiekt listy, ktory poczatkowo wskazuje na NULL."<<std::endl;
+  std::cout<<"Dodajemy ksiazki w kolejnosci: B, A, C, E, D"<<std::endl;
+  List<Book> *f = NULL;  //wskaznik na pierwszy element listy
+  f = new_o(f, b2);
+  f = new_o(f, b1);
+  f = new_o(f, b3);
+  f = new_o(f, b5);
+  f = new_o(f, b4);
+  std::cout<<"Lista ksiazek:"<<std::endl;
+  show_l(f);
+  std::cout<<"Jest to lista uporzadkowana"<<std::endl;
+
+
+  std::cout<<std::endl<<"Usuwamy z listy obiekty kolejno: 5, 3, 1"<<std::endl;
+  f = delete_o(5, f);
+  f = delete_o(3, f);
+  f = delete_o(1, f);
+  std::cout<<"Lista ksiazek:"<<std::endl;
+  show_l(f);
+
+  std::cout<<std::endl<<"Sprawdzamy, czy na liscie znajduje sie obiekt: "<<&b2<<std::endl;
+  curr = find_o(b2, f);
+  if(curr == NULL)  std::cout<<"Obiektu nie znaleziono"<<std::endl;
+  else std::cout<<"Obiekt znaleziono: "<<curr->get_obj()<<std::endl;
+  std::cout<<"Sprawdzamy, czy na liscie znajduje sie obiekt: "<<&b3<<std::endl;
+  curr = find_o(b3, f);
+  if(curr == NULL)  std::cout<<"Obiektu nie znaleziono"<<std::endl;
+  else std::cout<<"Obiekt znaleziono: "<<curr->get_obj()<<std::endl;
+
+
+  std::cout<<std::endl<<"Usuwamy pozostale obiekty utworzone dynamicznie:"<<std::endl;
+  while(f != NULL)
+    f = delete_o(1, f);
+
+
+  std::cout<<std::endl<<"Po zakonczonym tescie niszczone sa obiekty automatyczne"<<std::endl;
+}

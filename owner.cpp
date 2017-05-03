@@ -18,11 +18,13 @@ void Owner::new_bs()
   char n[20], c[20];
   double b;
 
-  std::cout<<"Nowa ksiegarnia: "<<std::endl;
+  std::cout<<std::endl<<"Nowa ksiegarnia: "<<std::endl;
   std::cout<<"Nazwa: ";       load(n, 20);
   std::cout<<"Miasto: ";      load(c, 20);
   std::cout<<"Budzet: ";      b = load_n();
   budget -= b;
+
+  if(budget < 0) {std::cout<<"BANKRUCTWO!"<<std::endl;  exit(0);}
 
   Bookshop bs(n, c, b);
   firstBs = new_o(firstBs, bs);
@@ -49,7 +51,7 @@ void Owner::accept(Bookshop *b)
   choice[0] = '0';
 
   if(b->get_oA() == 0)
-    std::cout<<"Aktualnie nie ma zlozonych zadnych zamowien"<<std::endl;
+    std::cout<<std::endl<<"Aktualnie nie ma zlozonych zadnych zamowien"<<std::endl;
   else if((curr = b->get_order()) != NULL)
   {
     show_order(b);
@@ -59,17 +61,17 @@ void Owner::accept(Bookshop *b)
     {
       do
       {
-        f = find_o(*(curr->get_obj()), b->get_firstB());
+        f = find_o(*(curr->get_obj()), b->get_firstB());  //wyszukiwanie zamowionej ksiazki na liscie w ksiegarni
         if(f != NULL)
         {
           currB = f->get_obj();
-          if((b->get_budget() - currB->get_nOrd()*quantity_pr(currB->get_year(), currB->get_pages())) > 0)
+          if((b->get_budget() - curr->get_obj()->get_number()*quantity_pr(currB->get_year(), currB->get_pages())) >= 0)  //bo ilosc stron i rok sa takie same
           {
-            *b - quantity_pr(currB->get_year(), currB->get_pages());
-            currB->set_number(currB->get_number()+curr->get_obj()->get_nOrd());
+            *b - curr->get_obj()->get_number()*quantity_pr(currB->get_year(), currB->get_pages());
+            currB->set_number(currB->get_number()+curr->get_obj()->get_number());
           }
           else
-            *b + quantity_pr(currB->get_year(), currB->get_pages());
+            break;
         }
         curr = curr->get_next();
       }while(curr != b->get_order());
@@ -87,4 +89,17 @@ void Owner::show_order(Bookshop *current)
     std::cout<<"Zadne zamowienie nie jest aktualnie zlozone"<<std::endl;
   else
     show_l(current->get_order());
+}
+
+void Owner::get_cash(Bookshop *bs)
+{
+  double number;
+  std::cout<<bs;
+  std::cout<<"Podaj o ile chcesz pomniejszyc budzet ksiegarni: ";
+  do
+  {
+    number = load_n();
+  }while(number < 0 || number > bs->get_budget());
+  *bs - number;
+  budget += number;
 }
